@@ -1,0 +1,1 @@
+export type CategoryType = 'sports' | 'finance' | 'movies';

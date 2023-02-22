@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  service:
+    build: "."
+    tty: true
+    ports:
+      - 0.0.0.0:9999:9999
+    environment:
+      - NODE_ENV=development
+      - APP_PORT=9999
+      - APP_SECRET=ABCDEF
+
+      - CRYPTR_SECRET=ASDQWE
+
+        #IN MINUTES
+      - RENEW_TOKEN_EXPIRES=30
+
+      - MONGO_HOST=mongodb
+      - MONGO_DB=develop
+      - MONGO_PORT=27017
+
+      - SENDER_PHONE_NUMBER=+55 99123-1233
+      - SENDER_EMAIL=no-reply@gmail.com
+
+
+    volumes:
+      - .:/opt/app
+    networks:
+      - local_network
+
+  mongodb:
+    environment:
+      - MONGO_DB=develop
+    image: bitnami/mongodb:latest
+    ports:
+      - 0.0.0.0:27017:27017
+    networks:
+      - local_network
+
+networks:
+  local_network:
+    driver: bridge
