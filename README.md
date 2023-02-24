@@ -14,6 +14,17 @@ If you already run the Build of Docker you just need to execute this.
 ```bash
 docker-compose up
 ```
+
+## Developer
+
+Name: Willians C. Franco R.
+
+Stack: NodeJS / Docker
+
+Site:
+[https://williansfranco.dev/](https://williansfranco.dev/)
+
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
