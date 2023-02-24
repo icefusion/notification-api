@@ -15,6 +15,14 @@ If you already run the Build of Docker you just need to execute this.
 docker-compose up
 ```
 
+
+## Authentication
+
+Login: admin@gmail.com
+
+Password: 123456
+
+
 ## Developer
 
 Name: Willians C. Franco R.
