@@ -19,7 +19,7 @@ docker-compose up
 
 Name: Willians C. Franco R.
 
-Stack: NodeJS / Docker
+Stack: NodeJS / Docker / TypeORM / MongoDB
 
 Site:
 [https://williansfranco.dev/](https://williansfranco.dev/)
