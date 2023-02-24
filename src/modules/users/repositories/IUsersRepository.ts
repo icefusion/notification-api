@@ -1,13 +1,9 @@
-import ICreateUserDTO from "../dtos/ICreateUserDTO";
-import IUpdateUserDTO from "../dtos/IUpdateUserDTO";
-import User from "../infra/typeorm/entities/User";
+import User from '../infra/typeorm/schemas/User';
+import { ICreateUser } from '@modules/users/dtos/ICreateUser';
 
 export default interface IUsersRepository {
-  list(): Promise<User[]>;
-  findById(id: string): Promise<User | null>;
-  findByEmail(email: string): Promise<User | null>;
-  create(data: ICreateUserDTO): Promise<User>;
-  save(user: User): Promise<User>;
-  update(id: string, data: IUpdateUserDTO): Promise<User | null>;
-  delete(id: string): Promise<User | null>;
+  filter(): Promise<User[]>;
+  filterByCategory(categories: string[]): Promise<User[]>;
+  create(data: ICreateUser): Promise<User | any>;
+  save(user: User): Promise<void>;
 }

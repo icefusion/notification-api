@@ -1,20 +1,59 @@
-import { IAdmin } from '../interfaces/IAdmins';
 import { injectable } from 'tsyringe';
+import { ICreateAdminDto } from '@modules/admins/dtos/ICreateAdminDto';
+import IAdminRepository from '@modules/admins/repositories/IAdminsRepository';
+import { Repository } from 'typeorm';
+import Admin from '../schemas/Admin';
+import { MongoConnection } from '@shared/infra/typeorm/mongo';
 
 @injectable()
-class AdminsRepository {
-  private user: IAdmin = {
-    id: '901ac63c-7b6c-49b1-82e3-12d82e68ff7c',
-    name: "Willians",
-    email: "will@gmail.com"
-  };
+class AdminsRepository implements IAdminRepository {
+  private ormRepository: Repository<Admin>;
 
-  public async findById(id: string): Promise<IAdmin | null> {
-    if (this.user.id !== id) {
+  constructor() {
+    this.ormRepository = MongoConnection.getRepository(Admin);
+  }
+
+  public async existAdminUser(): Promise<Admin[]> {
+    const users = await this.ormRepository.find();
+
+    return users;
+  }
+
+  public async find(): Promise<Admin[] | null> {
+    try {
+      const users = await this.ormRepository.find();
+
+      console.log("USERS ", users);
+
+      return users;
+    } catch (err: any) {
+      console.log("ERROR ", err.message);
       return null;
     }
+  }
 
-    return this.user;
+  public async findByEmail(email: string): Promise<Admin | null> {
+    const user = await this.ormRepository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
+
+  public async create(data: ICreateAdminDto): Promise<Admin | null> {
+    const created = await this.ormRepository.create({
+      name: data.name,
+      email: data.email,
+      password: data.password
+    });
+
+    await this.save(created);
+
+    return created;
+  }
+
+  public async save(admin: Admin): Promise<void> {
+    await this.ormRepository.save(admin);
   }
 }
 

@@ -6,16 +6,19 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 
-@Entity('user_tokens')
-class UserToken {
+@Entity('admins')
+class Admin {
   @ObjectIdColumn()
   _id: ObjectID;
 
   @Column()
-  token: string;
+  name: string;
 
   @Column()
-  user_id: string;
+  email: string;
+
+  @Column()
+  password: string;
 
   @Column()
   expires_at: Date;
@@ -24,4 +27,4 @@ class UserToken {
   created_at: Date;
 }
 
-export default UserToken;
+export default Admin;

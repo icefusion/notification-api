@@ -1,12 +1,12 @@
 import { Message } from "./Message";
 import { container } from 'tsyringe';
 import MessageLogService from "@modules/logs/services/MessageLogService";
-import { IUserMessageLogDTO } from "@modules/users/dtos/IUserMessageLogDTO";
+import { IUserMessageLogDTO } from "@modules/auth/dtos/IUserMessageLogDTO";
 
 export class Email extends Message {
   protected subject: string;
   protected from: string;
-  
+
   constructor(from: string, to: string, subject: string, message: string, user: IUserMessageLogDTO) {
     super(to, message, user);
     this.from = from;
@@ -15,7 +15,7 @@ export class Email extends Message {
 
   async send() {
     const messageLogService = container.resolve(MessageLogService);
-    
+
     const payload = {
       from: this.from,
       to: this.to,
@@ -25,7 +25,7 @@ export class Email extends Message {
       inscriptions: this.user.inscriptions,
       user_id: this.user.user_id,
       user_name: this.user.user_name,
-      created_at: new Date() 
+      created_at: new Date()
     };
 
     await messageLogService.generate(payload);

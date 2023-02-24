@@ -1,9 +1,9 @@
 import { Message } from "./Message";
 import MessageLogService from '../../logs/services/MessageLogService';
 import { container } from 'tsyringe';
-import { IUserMessageLogDTO } from '../../users/dtos/IUserMessageLogDTO';
+import { IUserMessageLogDTO } from '../../auth/dtos/IUserMessageLogDTO';
 
-export class Sms extends Message {  
+export class Sms extends Message {
   protected from: string;
 
   constructor(from: string, to: string, message: string, user: IUserMessageLogDTO) {
@@ -13,7 +13,7 @@ export class Sms extends Message {
 
   async send() {
     const messageLogService = container.resolve(MessageLogService);
-    
+
     const payload = {
       from: this.from,
       to: this.to,
@@ -22,7 +22,7 @@ export class Sms extends Message {
       inscription: this.user.inscription,
       user_id: this.user.user_id,
       user_name: this.user.user_name,
-      created_at: new Date() 
+      created_at: new Date()
     };
 
     await messageLogService.generate(payload);

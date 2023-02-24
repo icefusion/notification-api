@@ -1,5 +1,5 @@
 import { IMessage } from './interfaces/IMessage';
-import { IUserMessageLogDTO } from '@modules/users/dtos/IUserMessageLogDTO';
+import { IUserMessageLogDTO } from '@modules/auth/dtos/IUserMessageLogDTO';
 
 export abstract class Message implements IMessage {
   to: string;

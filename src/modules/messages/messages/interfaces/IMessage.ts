@@ -1,4 +1,4 @@
-import { IUserMessageLogDTO } from "@modules/users/dtos/IUserMessageLogDTO";
+import { IUserMessageLogDTO } from "@modules/auth/dtos/IUserMessageLogDTO";
 
 export interface IMessage {
   to: string;

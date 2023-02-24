@@ -14,7 +14,7 @@ messageRouter.post(
       message: Joi.string().required()
     },
   }),
-  // authMiddleware,
+  authMiddleware,
   messageController.create,
 );
 

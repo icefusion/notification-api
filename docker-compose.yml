@@ -1,7 +1,7 @@
 version: "3.3"
 
 services:
-  service:
+  notification_api:
     build: "."
     tty: true
     ports:
@@ -11,33 +11,26 @@ services:
       - APP_PORT=9999
       - APP_SECRET=ABCDEF
 
-      - CRYPTR_SECRET=ASDQWE
-
-        #IN MINUTES
-      - RENEW_TOKEN_EXPIRES=30
-
-      - MONGO_HOST=mongodb
-      - MONGO_DB=develop
-      - MONGO_PORT=27017
+      - MONGO_URL=mongodb://notification_mongodb:27017
+      - MONGO_DB=notification_db
 
       - SENDER_PHONE_NUMBER=+55 99123-1233
       - SENDER_EMAIL=no-reply@gmail.com
 
-
     volumes:
       - .:/opt/app
     networks:
-      - local_network
+      - notification_local_network
 
-  mongodb:
+  notification_mongodb:
     environment:
-      - MONGO_DB=develop
+      - MONGO_DB=notification_db
     image: bitnami/mongodb:latest
     ports:
       - 0.0.0.0:27017:27017
     networks:
-      - local_network
+      - notification_local_network
 
 networks:
-  local_network:
+  notification_local_network:
     driver: bridge
